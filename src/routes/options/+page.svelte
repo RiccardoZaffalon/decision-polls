@@ -9,7 +9,9 @@
 	$: selected_singular = data.categories_rows.find((el) => el.id === selected_type).singular;
 
 	$: filtered = data.options_rows.filter(
-		(person) => name === '' || person.name.toLowerCase().includes(name.toLowerCase())
+		(option) =>
+			option.type === selected_type &&
+			(name === '' || option.name.toLowerCase().includes(name.toLowerCase()))
 	);
 
 	const submit = () => {

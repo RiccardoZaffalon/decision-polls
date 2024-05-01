@@ -15,8 +15,6 @@
 			vote += 1;
 		}
 	};
-
-	$: console.log(vote);
 </script>
 
 <label class="form-control">
