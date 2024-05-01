@@ -41,14 +41,20 @@
 					d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 				></path></svg
 			>
-			<span>C'è un pareggio!</span>
+			<span
+				>C'è un pareggio! <a
+					class="btn btn-xs btn-primary ml-3"
+					href="/session"
+					data-sveltekit-reload>Vota di nuovo</a
+				></span
+			>
 		</div>
 	{/if}
 	<table class="table text-xl mt-6">
 		<thead>
 			<tr>
-				<th>Nome</th>
-				<th>Voti</th>
+				<th>Opzione</th>
+				<th>Punteggio</th>
 			</tr>
 		</thead>
 

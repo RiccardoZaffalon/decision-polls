@@ -1,6 +1,7 @@
 <script>
 	import { step, participants, choices } from './store';
 	import Rating from '$lib/components/Rating.svelte';
+	import caret from '$lib/icons/caret-up-down.svg';
 
 	let current_participant = 0;
 </script>
@@ -10,8 +11,11 @@
 {#each $participants as participant, index}
 	<div class="collapse bg-base-200 mb-6">
 		<input type="radio" name="current-participant" bind:group={current_participant} value={index} />
-		<div class="collapse-title">
-			<h3 class="my-0">{participant.name}</h3>
+		<div class="collapse-title pr-4">
+			<div class="flex justify-between items-center">
+				<h3 class="my-0">{participant.name}</h3>
+				<img src={caret} class="h-5 w-5 my-0" alt="caret" />
+			</div>
 		</div>
 		<div class="collapse-content">
 			{#each $choices as choice}

@@ -19,7 +19,7 @@
 </script>
 
 <svelte:head>
-	<title>Persone</title>
+	<title>Persone | Solito Metodo 🎲</title>
 </svelte:head>
 
 <h1>Persone</h1>

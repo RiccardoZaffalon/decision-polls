@@ -1,4 +1,8 @@
-<h1>Benvenuti su "Il Solito Metodo"</h1>
+<svelte:head>
+	<title>Solito Metodo 🎲</title>
+</svelte:head>
+
+<h1>Benvenuti su "Solito Metodo"</h1>
 
 <nav>
 	<ul>

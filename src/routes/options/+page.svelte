@@ -21,7 +21,7 @@
 </script>
 
 <svelte:head>
-	<title>Opzioni</title>
+	<title>Opzioni | Solito Metodo 🎲</title>
 </svelte:head>
 
 <h1>Opzioni</h1>
@@ -58,14 +58,14 @@
 				{/each}
 			</select>
 		</label>
-
-		<input
-			class="btn btn-primary"
-			type="submit"
-			value={`Aggiungi ${selected_singular}`}
-			disabled={name === ''}
-		/>
 	</div>
+
+	<input
+		class="btn btn-primary w-full mt-4"
+		type="submit"
+		value={`Aggiungi ${selected_singular}`}
+		disabled={name === ''}
+	/>
 </form>
 
 <table class="table">

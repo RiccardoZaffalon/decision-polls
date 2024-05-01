@@ -1,0 +1,21 @@
+{
+  "name": "Solito Metodo",
+  "short_name": "Solito Metodo",
+  "description": "Webapp per decidere attraverso una votazione il gioco/cibo da scegliere per la serata",
+  "icons": [
+    {
+      "src": "favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/session",
+  "display": "standalone",
+  "theme_color": "#ff865b",
+  "background_color": "#ff865b"
+}

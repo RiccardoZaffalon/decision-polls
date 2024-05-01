@@ -1,5 +1,4 @@
 <script>
-	import { onMount } from 'svelte';
 	import { enhance } from '$app/forms';
 	import { afterNavigate } from '$app/navigation';
 
@@ -10,15 +9,15 @@
 
 	export let data;
 	export let form;
+	let y;
 
 	$: {
 		$type, option_filter.set(''), person_filter.set(''), choices.set([]);
 	}
 
-	onMount(() => {
-		console.log('MOUNT!!!!', data);
-		type.set(data?.categories_rows[0]?.id);
-	});
+	$: {
+		$step, (y = 0);
+	}
 
 	afterNavigate(() => {
 		step.set(1);
@@ -32,11 +31,15 @@
 	const submit = () => {
 		step.set(3);
 	};
+
+	type.set(data?.categories_rows[0]?.id);
 </script>
 
 <svelte:head>
-	<title>Nuova sessione</title>
+	<title>Votazione | Solito Metodo 🎲</title>
 </svelte:head>
+
+<svelte:window bind:scrollY={y} />
 
 <form method="POST" use:enhance={submit}>
 	<div style:display={$step === 1 ? 'block' : 'none'}>

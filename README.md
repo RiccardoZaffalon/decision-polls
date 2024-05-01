@@ -11,3 +11,23 @@ A SvelteKit application to make decisions together via polls. SQLite (libSQL) da
 - [Drizzle](https://orm.drizzle.team/docs/overview) (ORM)
 
 Hosted on [Vercel](https://vercel.com).
+
+### Instructions
+
+1. Install dependencies using node version ^20
+
+- `npm install`
+
+2. Configure the environment variables to point to the Turso DB in a .env file
+
+```
+  TURSO_DATABASE_URL=
+  TURSO_AUTH_TOKEN=
+```
+
+3. Run migrations included in `/drizzle/migrations`, if needed
+4. Run the application in development mode with hot module reloading
+
+- `npm run dev`
+
+5. Make your changes to the app in the `/src` directory
