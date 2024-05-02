@@ -1,4 +1,7 @@
 <script>
+	import Minus from '$lib/components/icons/Minus.svelte';
+	import Plus from '$lib/components/icons/Plus.svelte';
+
 	export let participant, choice;
 
 	let vote = 0;
@@ -22,8 +25,9 @@
 		<span class="label-text">{choice.name}</span>
 
 		<div class="join">
-			<button on:click|preventDefault={minus} class="btn btn-square btn-neutral join-item">-</button
-			>
+			<button on:click|preventDefault={minus} class="btn btn-square btn-neutral join-item">
+				<Minus />
+			</button>
 
 			<input
 				type="text"
@@ -34,7 +38,9 @@
 				bind:value={vote}
 				readonly
 			/>
-			<button on:click|preventDefault={plus} class="btn btn-square btn-neutral join-item">+</button>
+			<button on:click|preventDefault={plus} class="btn btn-square btn-neutral join-item">
+				<Plus />
+			</button>
 		</div>
 	</div>
 </label>

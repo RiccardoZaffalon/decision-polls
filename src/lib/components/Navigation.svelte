@@ -1,27 +1,27 @@
 <script>
 	import { page } from '$app/stores';
 
-	import home from '$lib/icons/house.svg';
-	import people from '$lib/icons/users.svg';
-	import options from '$lib/icons/clipboard-text.svg';
-	import vote from '$lib/icons/sword.svg';
+	import Home from '$lib/components/icons/House.svelte';
+	import People from '$lib/components/icons/Users.svelte';
+	import Options from '$lib/components/icons/ClipboardText.svelte';
+	import Vote from '$lib/components/icons/Sword.svelte';
 </script>
 
 <nav class="btm-nav">
-	<a href="/" class={$page.url.pathname === '/' && 'active'}>
-		<img src={home} class="h-5 w-5" alt="Home" />
+	<a href="/" class:active={$page.url.pathname === '/'}>
+		<Home class="h-5 w-5" />
 		<span class="btm-nav-label">Home</span>
 	</a>
-	<a href="/people" class={$page.url.pathname === '/people' && 'active'}>
-		<img src={people} class="h-5 w-5" alt="People" />
+	<a href="/people" class:active={$page.url.pathname === '/people'}>
+		<People class="h-5 w-5" />
 		<span class="btm-nav-label">Persone</span>
 	</a>
-	<a href="/options" class={$page.url.pathname === '/options' && 'active'}>
-		<img src={options} class="h-5 w-5" alt="Options" />
+	<a href="/options" class:active={$page.url.pathname === '/options'}>
+		<Options class="h-5 w-5" />
 		<span class="btm-nav-label">Opzioni</span>
 	</a>
-	<a href="/session" class={$page.url.pathname === '/session' && 'active'} data-sveltekit-reload>
-		<img src={vote} class="h-5 w-5" alt="Session" />
-		<span class="btm-nav-label text-secondary">Votazione</span>
+	<a href="/session" class="text-primary" class:active={$page.url.pathname === '/session'}>
+		<Vote class="h-5 w-5" />
+		<span class="btm-nav-label">Votazione</span>
 	</a>
 </nav>

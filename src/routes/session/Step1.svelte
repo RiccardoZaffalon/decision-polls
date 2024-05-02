@@ -10,6 +10,43 @@
 	} from './store';
 
 	export let data;
+	let person_add_loading = false;
+	let option_add_loading = false;
+
+	const updateParticipants = (item) => {
+		if ($participants.some((el) => el.id === item.id)) {
+			participants.set($participants.filter((el) => el.id !== item.id));
+		} else {
+			participants.set([...$participants, item]);
+		}
+	};
+
+	const addPerson = async () => {
+		person_add_loading = true;
+
+		try {
+			const added = await fetch('/people', {
+				method: 'POST',
+				body: JSON.stringify({
+					name: $person_filter
+				}),
+				headers: {
+					'content-type': 'application/json'
+				}
+			});
+
+			const person = await added.json();
+
+			data.people_rows.push(person);
+			participants.set([...$participants, person]);
+
+			person_filter.set('');
+		} catch (error) {
+			console.warn(error);
+		}
+
+		person_add_loading = false;
+	};
 
 	const updateChoices = (item) => {
 		if ($choices.some((el) => el.id === item.id)) {
@@ -19,12 +56,32 @@
 		}
 	};
 
-	const updateParticipants = (item) => {
-		if ($participants.some((el) => el.id === item.id)) {
-			participants.set($participants.filter((el) => el.id !== item.id));
-		} else {
-			participants.set([...$participants, item]);
+	const addOption = async () => {
+		option_add_loading = true;
+
+		try {
+			const added = await fetch('/options', {
+				method: 'POST',
+				body: JSON.stringify({
+					name: $option_filter,
+					type: $type
+				}),
+				headers: {
+					'content-type': 'application/json'
+				}
+			});
+
+			const option = await added.json();
+
+			data.options_rows.push(option);
+			choices.set([...$choices, option]);
+
+			option_filter.set('');
+		} catch (error) {
+			console.warn(error);
 		}
+
+		option_add_loading = false;
 	};
 </script>
 
@@ -32,36 +89,27 @@
 
 <h3 class="mb-1">Seleziona i partecipanti alla votazione</h3>
 <p class="text-xs">
-	Manca un partecipante? <a href="/people"
-		>Aggiungilo nella sezione <em class="text-secondary">Persone</em></a
-	> prima di continuare
+	Utilizza il campo qui sotto per trovare un partecipante esistente; se non lo trovi, usa il
+	pulsante <em class="text-primary">Aggiungi</em>.
 </p>
 
-<div class="join mt-8">
+<div class="join">
 	<input
-		class="input input-sm join-item input-bordered mb-3"
+		class="input join-item input-bordered mb-3"
 		type="text"
 		bind:value={$person_filter}
-		placeholder="Filtra partecipanti..."
+		placeholder="Filtra o aggiungi partecipanti..."
 	/>
 	<button
-		class="btn btn-sm join-item btn-square btn-neutral"
-		on:click|preventDefault={() => person_filter.set('')}
+		class="btn join-item btn-primary"
+		on:click|preventDefault={addPerson}
+		disabled={person_add_loading || $person_filter === ''}
 	>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			class="h-4 w-4"
-			fill="none"
-			viewBox="0 0 24 24"
-			stroke="currentColor"
-			><path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="2"
-				d="M6 18L18 6M6 6l12 12"
-			/></svg
-		></button
-	>
+		Aggiungi
+		{#if person_add_loading}
+			<span class="loading loading-spinner"></span>
+		{/if}
+	</button>
 </div>
 
 <div class="columns-2">
@@ -69,16 +117,16 @@
 		<div class="form-control">
 			<label
 				class="label justify-start gap-2"
-				style:display={$person_filter === '' ||
+				style:opacity={$person_filter === '' ||
 				person.name.toLowerCase().includes($person_filter.toLowerCase())
 					? undefined
-					: 'none'}
+					: '0.3'}
 			>
 				<input
 					type="checkbox"
 					class="checkbox"
 					value={person.id}
-					checked={$participants.includes(person.id)}
+					checked={$participants.some((participant) => participant.id === person.id)}
 					on:change={() => updateParticipants(person)}
 				/>
 				<span class="label-text">{person.name}</span>
@@ -90,11 +138,6 @@
 <hr />
 
 <h3 class="mb-1">Seleziona categoria e opzioni disponibili</h3>
-<p class="text-xs">
-	Manca un'opzione? <a href="/options"
-		>Aggiungila nella sezione <em class="text-secondary">Opzioni</em></a
-	> prima di continuare
-</p>
 
 <div class="mb-8">
 	<label>
@@ -108,32 +151,28 @@
 	</label>
 </div>
 
+<p class="text-xs">
+	Utilizza il campo qui sotto per trovare un'opzione (gioco, cibo, ..) esistente; se non la trovi,
+	usa il pulsante <em class="text-primary">Aggiungi</em>.
+</p>
+
 <div class="join">
 	<input
 		type="text"
-		class="input input-sm join-item input-bordered mb-3"
+		class="input join-item input-bordered mb-3"
 		bind:value={$option_filter}
 		placeholder="Filtra opzioni..."
 	/>
-
 	<button
-		class="btn btn-sm join-item btn-square btn-neutral"
-		on:click|preventDefault={() => option_filter.set('')}
+		class="btn join-item btn-primary"
+		on:click|preventDefault={addOption}
+		disabled={option_add_loading || $option_filter === ''}
 	>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			class="h-4 w-4"
-			fill="none"
-			viewBox="0 0 24 24"
-			stroke="currentColor"
-			><path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="2"
-				d="M6 18L18 6M6 6l12 12"
-			/></svg
-		></button
-	>
+		Aggiungi
+		{#if option_add_loading}
+			<span class="loading loading-spinner"></span>
+		{/if}
+	</button>
 </div>
 
 <div class="columns-2">
@@ -141,16 +180,17 @@
 		<div class="form-control">
 			<label
 				class="label justify-start gap-2"
-				style:display={option.type === $type &&
-				(option_filter === '' || option.name.toLowerCase().includes($option_filter.toLowerCase()))
+				style:display={option.type === $type ? undefined : 'none'}
+				style:opacity={option_filter === '' ||
+				option.name.toLowerCase().includes($option_filter.toLowerCase())
 					? undefined
-					: 'none'}
+					: '0.3'}
 			>
 				<input
 					type="checkbox"
 					class="checkbox"
 					value={option.id}
-					checked={$choices.includes(option.id)}
+					checked={$choices.some((choice) => choice.id === option.id)}
 					on:change={() => updateChoices(option)}
 				/>
 				<span class="label-text">{option.name}</span>

@@ -2,7 +2,7 @@
 export default {
   content: ['./src/**/*.svelte'],
   daisyui: {
-    themes: ["sunset"],
+    themes: ["synthwave"],
   },
   theme: {
     extend: {},

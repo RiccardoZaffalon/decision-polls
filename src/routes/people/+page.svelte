@@ -1,13 +1,17 @@
 <script>
 	import { enhance } from '$app/forms';
+	import Trash from '$lib/components/icons/Trash.svelte';
 
 	export let data;
 	export let form;
 
 	let name = '';
+	let removed = [];
 
 	$: filtered = data.rows.filter(
-		(person) => name === '' || person.name.toLowerCase().includes(name.toLowerCase())
+		(person) =>
+			!removed.includes(person.id) &&
+			(name === '' || person.name.toLowerCase().includes(name.toLowerCase()))
 	);
 
 	const submit = () => {
@@ -16,6 +20,26 @@
 			name = '';
 		};
 	};
+
+	const remove = async (id) => {
+		try {
+			const request = await fetch('/people', {
+				method: 'DELETE',
+				body: JSON.stringify({
+					id
+				}),
+				headers: {
+					'content-type': 'application/json'
+				}
+			});
+
+			if (request.status >= 400) return;
+
+			removed = [...removed, id];
+		} catch (error) {
+			console.warn(error);
+		}
+	};
 </script>
 
 <svelte:head>
@@ -23,6 +47,10 @@
 </svelte:head>
 
 <h1>Persone</h1>
+
+<p>
+	Utilizza questa pagina per aggiungere nuove persone; saranno disponibili dalla prossima votazione.
+</p>
 
 {#if form}
 	{#if form.success && form.name}
@@ -51,15 +79,16 @@
 </form>
 
 <table class="table">
-	<thead>
-		<tr>
-			<th>Nome</th>
-		</tr>
-	</thead>
 	<tbody>
 		{#each filtered as person}
 			<tr>
 				<td>{person.name}</td>
+				<td class="text-right"
+					><button class="btn btn-xs" on:click|preventDefault={() => remove(person.id)}>
+						<Trash />
+						<span>Rimuovi</span>
+					</button></td
+				>
 			</tr>
 		{/each}
 	</tbody>

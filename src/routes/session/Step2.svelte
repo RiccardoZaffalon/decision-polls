@@ -1,7 +1,7 @@
 <script>
 	import { step, participants, choices } from './store';
 	import Rating from '$lib/components/Rating.svelte';
-	import caret from '$lib/icons/caret-up-down.svg';
+	import Caret from '$lib/components/icons/CaretUpDown.svelte';
 
 	let current_participant = 0;
 </script>
@@ -14,7 +14,7 @@
 		<div class="collapse-title pr-4">
 			<div class="flex justify-between items-center">
 				<h3 class="my-0">{participant.name}</h3>
-				<img src={caret} class="h-5 w-5 my-0" alt="caret" />
+				<Caret class="h-5 w-5 my-0" />
 			</div>
 		</div>
 		<div class="collapse-content">

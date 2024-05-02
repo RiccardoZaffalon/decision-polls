@@ -26,6 +26,7 @@
 
 		choices.set([]);
 		participants.set([]);
+		y = 0;
 	});
 
 	const submit = () => {

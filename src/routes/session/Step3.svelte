@@ -42,10 +42,7 @@
 				></path></svg
 			>
 			<span
-				>C'è un pareggio! <a
-					class="btn btn-xs btn-primary ml-3"
-					href="/session"
-					data-sveltekit-reload>Vota di nuovo</a
+				>C'è un pareggio! <a class="btn btn-xs btn-primary ml-3" href="/session">Vota di nuovo</a
 				></span
 			>
 		</div>
