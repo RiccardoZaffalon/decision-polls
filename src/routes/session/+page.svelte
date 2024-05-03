@@ -3,6 +3,7 @@
 	import { afterNavigate } from '$app/navigation';
 
 	import { step, type, choices, participants, option_filter, person_filter } from './store';
+
 	import Step1 from './Step1.svelte';
 	import Step2 from './Step2.svelte';
 	import Step3 from './Step3.svelte';

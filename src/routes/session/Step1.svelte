@@ -85,17 +85,32 @@
 	};
 </script>
 
-<h2 class="mt-0">1. Configura la sessione</h2>
-
-<h3 class="mb-1">Seleziona i partecipanti alla votazione</h3>
-<p class="text-xs">
-	Utilizza il campo qui sotto per trovare un partecipante esistente; se non lo trovi, usa il
-	pulsante <em class="text-primary">Aggiungi</em>.
+<h2 class="mt-0 mb-4">1. Configura la sessione</h2>
+<p class="text-sm">
+	Selezione la categoria di voto, poi almeno 2 partecipanti e 2 opzioni per iniziare la votazione.
 </p>
+
+<div class="mb-8">
+	<label>
+		<span class="label">Cosa dobbiamo decidere?</span>
+
+		<select class="select select-bordered w-48" name="type" bind:value={$type}>
+			{#each data.categories_rows as category}
+				<option value={category.id}>{category.name}</option>
+			{/each}
+		</select>
+	</label>
+</div>
+
+<!-- <h3 class="mb-3">Seleziona i partecipanti</h3> -->
+<label for="participant">
+	<span class="label">Chi partecipa?</span>
+</label>
 
 <div class="join">
 	<input
-		class="input join-item input-bordered mb-3"
+		class="input join-item input-bordered"
+		id="participant"
 		type="text"
 		bind:value={$person_filter}
 		placeholder="Filtra o aggiungi partecipanti..."
@@ -112,7 +127,13 @@
 	</button>
 </div>
 
-<div class="columns-2">
+<!-- <p class="text-xs">
+	Utilizza questo campo per trovare un partecipante esistente; se non lo trovi, usa il pulsante <em
+		class="text-primary">Aggiungi</em
+	>.
+</p> -->
+
+<div class="columns-2 mt-4">
 	{#each data.people_rows as person}
 		<div class="form-control">
 			<label
@@ -135,31 +156,18 @@
 	{/each}
 </div>
 
-<hr />
+<hr class="border-none my-8" />
 
-<h3 class="mb-1">Seleziona categoria e opzioni disponibili</h3>
-
-<div class="mb-8">
-	<label>
-		<span class="label">Categoria</span>
-
-		<select class="select select-bordered w-48" name="type" bind:value={$type}>
-			{#each data.categories_rows as category}
-				<option value={category.id}>{category.name}</option>
-			{/each}
-		</select>
-	</label>
-</div>
-
-<p class="text-xs">
-	Utilizza il campo qui sotto per trovare un'opzione (gioco, cibo, ..) esistente; se non la trovi,
-	usa il pulsante <em class="text-primary">Aggiungi</em>.
-</p>
+<!-- <h3 class="mb-1">Seleziona le opzioni disponibili</h3> -->
+<label for="option">
+	<span class="label">Che opzioni abbiamo?</span>
+</label>
 
 <div class="join">
 	<input
 		type="text"
-		class="input join-item input-bordered mb-3"
+		id="option"
+		class="input join-item input-bordered"
 		bind:value={$option_filter}
 		placeholder="Filtra opzioni..."
 	/>
@@ -175,7 +183,12 @@
 	</button>
 </div>
 
-<div class="columns-2">
+<!-- <p class="text-xs">
+	Utilizza questo campo per trovare un'opzione (gioco, cibo, ..) esistente; se non la trovi, usa il
+	pulsante <em class="text-primary">Aggiungi</em>.
+</p> -->
+
+<div class="columns-2 mt-4">
 	{#each data.options_rows as option}
 		<div class="form-control">
 			<label
@@ -199,7 +212,7 @@
 	{/each}
 </div>
 
-<div class="mt-2 text-right">
+<div class="mt-6 text-right">
 	<button
 		class="btn btn-primary min-w-24"
 		on:click|preventDefault={() => step.set(2)}
