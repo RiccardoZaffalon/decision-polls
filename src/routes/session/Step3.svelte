@@ -1,33 +1,11 @@
 <script>
-	export let data, form;
-
-	$: results = (form?.event_votes || [])
-		.reduce((acc, vote) => {
-			const { optionId, value } = vote;
-
-			const option = data.options_rows.find((option) => option.id === optionId);
-			const optionAcc = acc.find((el) => el.name === option.name);
-
-			if (optionAcc) {
-				optionAcc.score += value;
-			} else {
-				acc.push({
-					name: option.name,
-					score: value
-				});
-			}
-
-			return acc;
-		}, [])
-		.sort((a, b) => b.score - a.score);
-
-	$: isTie = results.length > 1 && results[0].score === results[1].score;
+	export let form;
 </script>
 
 <h2 class="mt-0">3. Risultati</h2>
 
-{#if form?.success && results.length}
-	{#if isTie}
+{#if form?.success && form.resultsByOption.length}
+	{#if form.isTie}
 		<div role="alert" class="alert">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -47,6 +25,7 @@
 			>
 		</div>
 	{/if}
+
 	<table class="table text-xl mt-6">
 		<thead>
 			<tr>
@@ -55,8 +34,8 @@
 			</tr>
 		</thead>
 
-		{#each results as result, index}
-			<tr class={index === 0 && !isTie ? 'bg-base-200 text-primary' : undefined}>
+		{#each form.resultsByOption as result, index}
+			<tr class={index === 0 && !form.isTie ? 'bg-base-200 text-primary' : undefined}>
 				<td>{result.name}</td>
 				<th>{result.score}</th>
 			</tr>

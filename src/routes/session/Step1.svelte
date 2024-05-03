@@ -199,7 +199,7 @@
 	{/each}
 </div>
 
-<div class="mt-6 text-right">
+<div class="mt-2 text-right">
 	<button
 		class="btn btn-primary min-w-24"
 		on:click|preventDefault={() => step.set(2)}
