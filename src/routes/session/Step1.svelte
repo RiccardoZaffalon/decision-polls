@@ -19,6 +19,8 @@
 		} else {
 			participants.set([...$participants, item]);
 		}
+
+		person_filter.set('');
 	};
 
 	const addPerson = async () => {
@@ -38,9 +40,7 @@
 			const person = await added.json();
 
 			data.people_rows.push(person);
-			participants.set([...$participants, person]);
-
-			person_filter.set('');
+			updateParticipants(person);
 		} catch (error) {
 			console.warn(error);
 		}
@@ -54,6 +54,8 @@
 		} else {
 			choices.set([...$choices, item]);
 		}
+
+		option_filter.set('');
 	};
 
 	const addOption = async () => {
@@ -74,9 +76,7 @@
 			const option = await added.json();
 
 			data.options_rows.push(option);
-			choices.set([...$choices, option]);
-
-			option_filter.set('');
+			updateChoices(option);
 		} catch (error) {
 			console.warn(error);
 		}
