@@ -20,7 +20,7 @@
 		<Options class="h-5 w-5" />
 		<span class="btm-nav-label">Opzioni</span>
 	</a>
-	<a href="/session" class="text-primary" class:active={$page.url.pathname === '/session'}>
+	<a href="/session" class="text-accent" class:active={$page.url.pathname === '/session'}>
 		<Vote class="h-5 w-5" />
 		<span class="btm-nav-label">Votazione</span>
 	</a>
