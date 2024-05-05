@@ -51,10 +51,18 @@ export const actions = {
                 .groupBy(votes.optionId)
                 .orderBy(desc(sum(votes.value)));
 
+            const resultsByPerson = await db
+                .select({ person_name: people.name, option_name: options.name, vote: votes.value })
+                .from(options)
+                .leftJoin(votes, eq(options.id, votes.optionId))
+                .leftJoin(people, eq(votes.personId, people.id))
+                .where(eq(votes.eventId, event.id))
+                .orderBy(people.name, options.name);
+
             const isTie =
                 resultsByOption.length > 1 && resultsByOption[0].score === resultsByOption[1].score;
 
-            return { success: true, event, resultsByOption, isTie };
+            return { success: true, event, resultsByOption, isTie, resultsByPerson };
         } catch (error) {
             console.log(error);
             return { success: false };

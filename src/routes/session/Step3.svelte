@@ -1,12 +1,14 @@
 <script>
 	export let form;
 
+	$: console.log(form?.resultsByPerson);
+
 	import Sword from '$lib/components/icons/Sword.svelte';
 </script>
 
 <h2 class="mt-0">3. Risultati</h2>
 
-{#if form?.success && form.resultsByOption.length}
+{#if form?.success}
 	{#if form.isTie}
 		<div role="alert" class="alert">
 			<svg
@@ -28,21 +30,46 @@
 		</div>
 	{/if}
 
-	<table class="table text-xl mt-6">
-		<thead>
-			<tr>
-				<th>Opzione</th>
-				<th>Punteggio</th>
-			</tr>
-		</thead>
+	{#if form.resultsByOption}
+		<table class="table text-xl mt-6">
+			<thead>
+				<tr>
+					<th>Opzione</th>
+					<th>Punteggio</th>
+				</tr>
+			</thead>
 
-		{#each form.resultsByOption as result, index}
-			<tr class={index === 0 && !form.isTie ? 'bg-base-200 text-primary' : undefined}>
-				<td>{result.name}</td>
-				<th>{result.score}</th>
-			</tr>
-		{/each}
-	</table>
+			{#each form.resultsByOption as result, index}
+				<tr class={index === 0 && !form.isTie ? 'bg-base-200 text-primary' : undefined}>
+					<td>{result.name}</td>
+					<th>{result.score}</th>
+				</tr>
+			{/each}
+		</table>
+	{/if}
+
+	<hr />
+
+	{#if form.resultsByPerson}
+		<table class="table mt-6">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Opzione</th>
+					<th>Voto</th>
+				</tr>
+			</thead>
+
+			{#each form.resultsByPerson as vote}
+				<tr>
+					<td>{vote.person_name}</td>
+					<td>{vote.option_name}</td>
+					<th>{vote.vote}</th>
+				</tr>
+			{/each}
+		</table>
+	{/if}
+
 	{#if !form.isTie}
 		<a class="btn btn-primary" href="/session">
 			Nuova votazione
