@@ -1,3 +1,5 @@
+import { eq, sum, desc } from 'drizzle-orm';
+
 import db from '$lib/db.server';
 import { categories, options, people, events, votes } from '$lib/db/schema';
 
@@ -41,34 +43,20 @@ export const actions = {
 
             if (!save) return { success: false };
 
-            const options_rows = await db.select().from(options);
+            const resultsByOption = await db
+                .select({ name: options.name, score: sum(votes.value) })
+                .from(votes)
+                .leftJoin(options, eq(options.id, votes.optionId))
+                .where(eq(votes.eventId, event.id))
+                .groupBy(votes.optionId)
+                .orderBy(desc(sum(votes.value)));
 
-            // TODO migrate result calc to query-based, so that it can be used for any event
-            // TODO add resultsByPerson, to show people's actual votes as a recap/validation
-            const resultsByOption = (event_votes || [])
-                .reduce((acc, vote) => {
-                    const { optionId, value } = vote;
-
-                    const option = options_rows.find((option) => option.id === optionId);
-                    const optionAcc = acc.find((el) => el.name === option.name);
-
-                    if (optionAcc) {
-                        optionAcc.score += value;
-                    } else {
-                        acc.push({
-                            name: option.name,
-                            score: value
-                        });
-                    }
-
-                    return acc;
-                }, [])
-                .sort((a, b) => b.score - a.score);
-
-            const isTie = resultsByOption.length > 1 && resultsByOption[0].score === resultsByOption[1].score;
+            const isTie =
+                resultsByOption.length > 1 && resultsByOption[0].score === resultsByOption[1].score;
 
             return { success: true, event, resultsByOption, isTie };
         } catch (error) {
+            console.log(error);
             return { success: false };
         }
     }

@@ -28,7 +28,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="/session" class="text-accent" class:active={$page.url.pathname === '/session'}>
+			<a href="/session" class="text-primary" class:active={$page.url.pathname === '/session'}>
 				<Vote class="h-5 w-5" />
 				<span>Vota</span>
 			</a>

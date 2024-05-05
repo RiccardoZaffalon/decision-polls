@@ -1,5 +1,7 @@
 <script>
 	export let form;
+
+	import Sword from '$lib/components/icons/Sword.svelte';
 </script>
 
 <h2 class="mt-0">3. Risultati</h2>
@@ -41,6 +43,12 @@
 			</tr>
 		{/each}
 	</table>
+	{#if !form.isTie}
+		<a class="btn btn-primary" href="/session">
+			Nuova votazione
+			<Sword />
+		</a>
+	{/if}
 {:else}
 	<p class="text-center py-4"><span class="loading loading-spinner loading-md"></span></p>
 {/if}

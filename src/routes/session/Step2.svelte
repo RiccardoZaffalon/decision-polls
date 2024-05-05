@@ -14,7 +14,7 @@
 		<div class="collapse-title pr-4">
 			<div class="flex justify-between items-center">
 				<h3 class="my-0">{participant.name}</h3>
-				<Caret class="h-5 w-5 my-0" />
+				<Caret className="h-5 w-5 my-0" />
 			</div>
 		</div>
 		<div class="collapse-content">

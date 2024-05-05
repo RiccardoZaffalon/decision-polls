@@ -53,6 +53,6 @@
 	</div>
 
 	<div style:display={$step === 3 ? 'block' : 'none'}>
-		<Step3 {data} {form} />
+		<Step3 {form} />
 	</div>
 </form>

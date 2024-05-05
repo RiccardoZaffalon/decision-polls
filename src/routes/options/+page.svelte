@@ -52,8 +52,8 @@
 <h1>Opzioni</h1>
 
 <p>
-	Utilizza questa pagina per aggiungere nuove opzioni (giochi, cibi, ecc..); saranno disponibili
-	dalla prossima votazione.
+	Usa questa pagina per aggiungere nuove opzioni (giochi, cibi, ecc..); saranno disponibili dalla
+	prossima votazione.
 </p>
 
 {#if form}

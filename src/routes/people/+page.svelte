@@ -48,9 +48,7 @@
 
 <h1>Persone</h1>
 
-<p>
-	Utilizza questa pagina per aggiungere nuove persone; saranno disponibili dalla prossima votazione.
-</p>
+<p>Usa questa pagina per aggiungere nuove persone; saranno disponibili dalla prossima votazione.</p>
 
 {#if form}
 	{#if form.success && form.name}
