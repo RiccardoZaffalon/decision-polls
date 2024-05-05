@@ -1,8 +1,6 @@
 <script>
 	export let form;
 
-	$: console.log(form?.resultsByPerson);
-
 	import Sword from '$lib/components/icons/Sword.svelte';
 </script>
 
