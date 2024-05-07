@@ -1,36 +1,43 @@
 <script>
-	import {
-		step,
-		type,
-		participants,
-		choices,
-		option_filter,
-		person_filter,
-		configured
-	} from './store';
+	import { afterNavigate } from '$app/navigation';
 
-	export let data;
-	let person_add_loading = false;
-	let option_add_loading = false;
+	import store from './store.svelte';
+
+	const { data } = $props();
+
+	let person_add_loading = $state(false);
+	let option_add_loading = $state(false);
+
+	let option_filter = $state('');
+	let person_filter = $state('');
+
+	let type = $state(data?.categories_rows[0]?.id);
+
+	afterNavigate(() => {
+		person_filter = '';
+		option_filter = '';
+	});
 
 	const updateParticipants = (item) => {
-		if ($participants.some((el) => el.id === item.id)) {
-			participants.set($participants.filter((el) => el.id !== item.id));
+		if (store.participants.some((el) => el.id === item.id)) {
+			store.setParticipants(store.participants.filter((el) => el.id !== item.id));
 		} else {
-			participants.set([...$participants, item]);
+			store.participants.push(item);
 		}
 
-		person_filter.set('');
+		person_filter = '';
 	};
 
-	const addPerson = async () => {
+	const addPerson = async (e) => {
+		e.preventDefault();
+
 		person_add_loading = true;
 
 		try {
 			const added = await fetch('/people', {
 				method: 'POST',
 				body: JSON.stringify({
-					name: $person_filter
+					name: person_filter
 				}),
 				headers: {
 					'content-type': 'application/json'
@@ -49,24 +56,26 @@
 	};
 
 	const updateChoices = (item) => {
-		if ($choices.some((el) => el.id === item.id)) {
-			choices.set($choices.filter((el) => el.id !== item.id));
+		if (store.choices.some((el) => el.id === item.id)) {
+			store.setChoices(store.choices.filter((el) => el.id !== item.id));
 		} else {
-			choices.set([...$choices, item]);
+			store.choices.push(item);
 		}
 
-		option_filter.set('');
+		option_filter = '';
 	};
 
 	const addOption = async () => {
+		e.preventDefault(e);
+
 		option_add_loading = true;
 
 		try {
 			const added = await fetch('/options', {
 				method: 'POST',
 				body: JSON.stringify({
-					name: $option_filter,
-					type: $type
+					name: option_filter,
+					type
 				}),
 				headers: {
 					'content-type': 'application/json'
@@ -83,6 +92,19 @@
 
 		option_add_loading = false;
 	};
+
+	const reset = () => {
+		person_filter = '';
+		option_filter = '';
+
+		store.setChoices([]);
+	};
+
+	const next = (e) => {
+		e.preventDefault();
+
+		store.forward();
+	};
 </script>
 
 <h2 class="mt-0 mb-4">1. Configura la sessione</h2>
@@ -94,7 +116,7 @@
 	<label>
 		<span class="label">Cosa dobbiamo decidere?</span>
 
-		<select class="select select-bordered w-48" name="type" bind:value={$type}>
+		<select class="select select-bordered w-48" name="type" bind:value={type} onchange={reset}>
 			{#each data.categories_rows as category}
 				<option value={category.id}>{category.name}</option>
 			{/each}
@@ -112,13 +134,13 @@
 		class="input join-item input-bordered"
 		id="participant"
 		type="text"
-		bind:value={$person_filter}
+		bind:value={person_filter}
 		placeholder="Filtra o aggiungi partecipanti..."
 	/>
 	<button
 		class="btn join-item btn-primary"
-		on:click|preventDefault={addPerson}
-		disabled={person_add_loading || $person_filter === ''}
+		onclick={addPerson}
+		disabled={person_add_loading || person_filter === ''}
 	>
 		Aggiungi
 		{#if person_add_loading}
@@ -138,8 +160,8 @@
 		<div class="form-control">
 			<label
 				class="label justify-start gap-2"
-				style:opacity={$person_filter === '' ||
-				person.name.toLowerCase().includes($person_filter.toLowerCase())
+				style:opacity={person_filter === '' ||
+				person.name.toLowerCase().includes(person_filter.toLowerCase())
 					? undefined
 					: '0.3'}
 			>
@@ -147,8 +169,8 @@
 					type="checkbox"
 					class="checkbox"
 					value={person.id}
-					checked={$participants.some((participant) => participant.id === person.id)}
-					on:change={() => updateParticipants(person)}
+					checked={store.participants.some((participant) => participant.id === person.id)}
+					onchange={() => updateParticipants(person)}
 				/>
 				<span class="label-text">{person.name}</span>
 			</label>
@@ -168,13 +190,13 @@
 		type="text"
 		id="option"
 		class="input join-item input-bordered"
-		bind:value={$option_filter}
+		bind:value={option_filter}
 		placeholder="Filtra opzioni..."
 	/>
 	<button
 		class="btn join-item btn-primary"
-		on:click|preventDefault={addOption}
-		disabled={option_add_loading || $option_filter === ''}
+		onclick={addOption}
+		disabled={option_add_loading || option_filter === ''}
 	>
 		Aggiungi
 		{#if option_add_loading}
@@ -193,9 +215,9 @@
 		<div class="form-control">
 			<label
 				class="label justify-start gap-2"
-				style:display={option.type === $type ? undefined : 'none'}
+				style:display={option.type === type ? undefined : 'none'}
 				style:opacity={option_filter === '' ||
-				option.name.toLowerCase().includes($option_filter.toLowerCase())
+				option.name.toLowerCase().includes(option_filter.toLowerCase())
 					? undefined
 					: '0.3'}
 			>
@@ -203,8 +225,8 @@
 					type="checkbox"
 					class="checkbox"
 					value={option.id}
-					checked={$choices.some((choice) => choice.id === option.id)}
-					on:change={() => updateChoices(option)}
+					checked={store.choices.some((choice) => choice.id === option.id)}
+					onchange={() => updateChoices(option)}
 				/>
 				<span class="label-text">{option.name}</span>
 			</label>
@@ -213,9 +235,7 @@
 </div>
 
 <div class="mt-6 text-right">
-	<button
-		class="btn btn-primary min-w-24"
-		on:click|preventDefault={() => step.set(2)}
-		disabled={!$configured}>Inizia</button
+	<button class="btn btn-primary min-w-24" onclick={next} disabled={!store.configured}
+		>Inizia</button
 	>
 </div>

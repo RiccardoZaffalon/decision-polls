@@ -2,18 +2,21 @@
 	import Minus from '$lib/components/icons/Minus.svelte';
 	import Plus from '$lib/components/icons/Plus.svelte';
 
-	export let participant, choice;
+	const { participant, choice, max = 3 } = $props();
 
-	let vote = 0;
-	const max = 3;
+	let vote = $state(0);
 
-	const minus = () => {
+	const minus = (e) => {
+		e.preventDefault();
+
 		if (vote > 0) {
 			vote -= 1;
 		}
 	};
 
-	const plus = () => {
+	const plus = (e) => {
+		e.preventDefault();
+
 		if (vote < max) {
 			vote += 1;
 		}
@@ -25,7 +28,7 @@
 		<span class="label-text">{choice.name}</span>
 
 		<div class="join">
-			<button on:click|preventDefault={minus} class="btn btn-square btn-neutral join-item">
+			<button onclick={minus} class="btn btn-square btn-neutral join-item">
 				<Minus />
 			</button>
 
@@ -34,11 +37,11 @@
 				class="input w-16 bg-neutral text-center join-item"
 				name={'vote-' + participant.id + '|' + choice.id}
 				min="0"
-				max="3"
 				bind:value={vote}
+				{max}
 				readonly
 			/>
-			<button on:click|preventDefault={plus} class="btn btn-square btn-neutral join-item">
+			<button onclick={plus} class="btn btn-square btn-neutral join-item">
 				<Plus />
 			</button>
 		</div>

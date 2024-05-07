@@ -2,39 +2,34 @@
 	import { enhance } from '$app/forms';
 	import { afterNavigate } from '$app/navigation';
 
-	import { step, type, choices, participants, option_filter, person_filter } from './store';
+	import store from './store.svelte';
 
 	import Step1 from './Step1.svelte';
 	import Step2 from './Step2.svelte';
 	import Step3 from './Step3.svelte';
 
-	export let data;
-	export let form;
-	let y;
+	const { data, form } = $props();
 
-	$: {
-		$type, option_filter.set(''), person_filter.set(''), choices.set([]);
-	}
+	let y = $state(0);
 
-	$: {
-		$step, (y = 0);
-	}
+	$effect(() => {
+		if (store.step) {
+			y = 0;
+		}
+	});
 
 	afterNavigate(() => {
-		step.set(1);
-		option_filter.set('');
-		person_filter.set('');
+		store.goToStep(1);
 
-		choices.set([]);
-		participants.set([]);
+		store.setChoices([]);
+		store.setParticipants([]);
+
 		y = 0;
 	});
 
 	const submit = () => {
-		step.set(3);
+		store.goToStep(3);
 	};
-
-	type.set(data?.categories_rows[0]?.id);
 </script>
 
 <svelte:head>
@@ -44,15 +39,15 @@
 <svelte:window bind:scrollY={y} />
 
 <form method="POST" use:enhance={submit}>
-	<div style:display={$step === 1 ? 'block' : 'none'}>
+	<div style:display={store.step === 1 ? 'block' : 'none'}>
 		<Step1 {data} />
 	</div>
 
-	<div style:display={$step === 2 ? 'block' : 'none'}>
+	<div style:display={store.step === 2 ? 'block' : 'none'}>
 		<Step2 />
 	</div>
 
-	<div style:display={$step === 3 ? 'block' : 'none'}>
+	<div style:display={store.step === 3 ? 'block' : 'none'}>
 		<Step3 {form} />
 	</div>
 </form>

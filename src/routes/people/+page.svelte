@@ -1,17 +1,19 @@
 <script>
 	import { enhance } from '$app/forms';
+
 	import Trash from '$lib/components/icons/Trash.svelte';
 
-	export let data;
-	export let form;
+	const { data, form } = $props();
 
-	let name = '';
-	let removed = [];
+	let name = $state('');
+	let removed = $state([]);
 
-	$: filtered = data.rows.filter(
-		(person) =>
-			!removed.includes(person.id) &&
-			(name === '' || person.name.toLowerCase().includes(name.toLowerCase()))
+	const filtered = $derived(
+		data.rows.filter(
+			(person) =>
+				!removed.includes(person.id) &&
+				(name === '' || person.name.toLowerCase().includes(name.toLowerCase()))
+		)
 	);
 
 	const submit = () => {
@@ -35,7 +37,7 @@
 
 			if (request.status >= 400) return;
 
-			removed = [...removed, id];
+			removed.push(id);
 		} catch (error) {
 			console.warn(error);
 		}
@@ -52,7 +54,11 @@
 
 {#if form}
 	{#if form.success && form.name}
-		<p>Persona <em>{form.name}</em> aggiunta!</p>
+		<div class="toast toast-end z-10">
+			<div class="alert alert-success">
+				<span class="text-sm">Persona <em>{form.name}</em> aggiunta!</span>
+			</div>
+		</div>
 	{/if}
 {/if}
 
@@ -82,7 +88,7 @@
 			<tr>
 				<td>{person.name}</td>
 				<td class="text-right"
-					><button class="btn btn-xs" on:click|preventDefault={() => remove(person.id)}>
+					><button class="btn btn-xs" onclick={() => remove(person.id)}>
 						<Trash />
 						<span>Rimuovi</span>
 					</button></td

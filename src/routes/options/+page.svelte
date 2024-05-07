@@ -1,20 +1,25 @@
 <script>
 	import { enhance } from '$app/forms';
+
 	import Trash from '$lib/components/icons/Trash.svelte';
 
-	export let data;
-	export let form;
+	const { data, form } = $props();
 
-	let name = '';
-	let removed = [];
-	let selected_type = 'game';
-	$: selected_singular = data.categories_rows.find((el) => el.id === selected_type).singular;
+	let name = $state('');
+	let removed = $state([]);
+	let selected_type = $state('game');
 
-	$: filtered = data.options_rows.filter(
-		(option) =>
-			!removed.includes(option.id) &&
-			option.type === selected_type &&
-			(name === '' || option.name.toLowerCase().includes(name.toLowerCase()))
+	const selected_singular = $derived(
+		data.categories_rows.find((el) => el.id === selected_type).singular
+	);
+
+	const filtered = $derived(
+		data.options_rows.filter(
+			(option) =>
+				!removed.includes(option.id) &&
+				option.type === selected_type &&
+				(name === '' || option.name.toLowerCase().includes(name.toLowerCase()))
+		)
 	);
 
 	const submit = () => {
@@ -38,7 +43,7 @@
 
 			if (request.status >= 400) return;
 
-			removed = [...removed, id];
+			removed.push(id);
 		} catch (error) {
 			console.warn(error);
 		}
@@ -58,7 +63,11 @@
 
 {#if form}
 	{#if form.success && form.name}
-		<p>Opzione <em>{form.name}</em> aggiunta!</p>
+		<div class="toast toast-end z-10">
+			<div class="alert alert-success">
+				<span class="text-sm">Opzione <em>{form.name}</em> aggiunta!</span>
+			</div>
+		</div>
 	{/if}
 {/if}
 
@@ -84,7 +93,7 @@
 			</div>
 			<select class="select select-bordered" name="type" bind:value={selected_type} required>
 				{#each data.categories_rows as type}
-					<option value={type.id}>{type.name}</option>
+					<option value={type.id} selected={type.id === selected_type}>{type.name}</option>
 				{/each}
 			</select>
 		</label>
@@ -104,7 +113,7 @@
 			<tr>
 				<td>{option.name}</td>
 				<td class="text-right"
-					><button class="btn btn-xs" on:click|preventDefault={() => remove(option.id)}>
+					><button class="btn btn-xs" onclick={() => remove(option.id)}>
 						<Trash />
 						<span>Rimuovi</span>
 					</button></td

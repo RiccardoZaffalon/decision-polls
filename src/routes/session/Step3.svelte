@@ -1,5 +1,5 @@
 <script>
-	export let form;
+	const { form } = $props();
 
 	import Sword from '$lib/components/icons/Sword.svelte';
 </script>
@@ -37,12 +37,14 @@
 				</tr>
 			</thead>
 
-			{#each form.resultsByOption as result, index}
-				<tr class={index === 0 && !form.isTie ? 'bg-base-200 text-primary' : undefined}>
-					<td>{result.name}</td>
-					<th>{result.score}</th>
-				</tr>
-			{/each}
+			<tbody>
+				{#each form.resultsByOption as result, index}
+					<tr class={index === 0 && !form.isTie ? 'bg-base-200 text-primary' : undefined}>
+						<td>{result.name}</td>
+						<th>{result.score}</th>
+					</tr>
+				{/each}
+			</tbody>
 		</table>
 	{/if}
 
@@ -58,13 +60,15 @@
 				</tr>
 			</thead>
 
-			{#each form.resultsByPerson as vote}
-				<tr>
-					<td>{vote.person_name}</td>
-					<td>{vote.option_name}</td>
-					<th>{vote.vote}</th>
-				</tr>
-			{/each}
+			<tbody>
+				{#each form.resultsByPerson as vote}
+					<tr>
+						<td>{vote.person_name}</td>
+						<td>{vote.option_name}</td>
+						<th>{vote.vote}</th>
+					</tr>
+				{/each}
+			</tbody>
 		</table>
 	{/if}
 

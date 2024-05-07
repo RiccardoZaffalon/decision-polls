@@ -1,6 +1,5 @@
 <script>
-	export let size = 32;
-	export let className = 'w-4 h-4';
+	const { size = 32, className = 'w-4 h-4' } = $props();
 </script>
 
 <svg
