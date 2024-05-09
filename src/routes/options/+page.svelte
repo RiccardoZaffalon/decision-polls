@@ -1,5 +1,6 @@
 <script>
 	import { enhance } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
 
 	import Trash from '$lib/components/icons/Trash.svelte';
 
@@ -7,10 +8,10 @@
 
 	let name = $state('');
 	let removed = $state([]);
-	let selected_type = $state('game');
+	let selected_type = $state(data.categories_rows[1].id);
 
 	const selected_singular = $derived(
-		data.categories_rows.find((el) => el.id === selected_type).singular
+		data.categories_rows.find((el) => el.id === selected_type)?.singular
 	);
 
 	const filtered = $derived(
@@ -24,8 +25,10 @@
 
 	const submit = () => {
 		return async ({ update }) => {
-			update();
 			name = '';
+
+			await update({ reset: false });
+			await invalidateAll();
 		};
 	};
 
@@ -93,7 +96,7 @@
 			</div>
 			<select class="select select-bordered" name="type" bind:value={selected_type} required>
 				{#each data.categories_rows as type}
-					<option value={type.id} selected={type.id === selected_type}>{type.name}</option>
+					<option value={type.id}>{type.name}</option>
 				{/each}
 			</select>
 		</label>
