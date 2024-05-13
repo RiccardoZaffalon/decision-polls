@@ -65,7 +65,7 @@
 		option_filter = '';
 	};
 
-	const addOption = async () => {
+	const addOption = async (e) => {
 		e.preventDefault(e);
 
 		option_add_loading = true;
