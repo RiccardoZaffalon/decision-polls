@@ -1,10 +1,11 @@
-import { eq } from "drizzle-orm";
+import { gt } from "drizzle-orm";
 
 import db from "$lib/db.server";
-import { events, votes } from "$lib/db/schema";
+import { events } from "$lib/db/schema";
 
 export async function load() {
-    // const events_rows = await db.select().from(votes).leftJoin(events, eq(votes.eventId, events.id));
+    const GO_LIVE_DATE = 1717185097160;
+    const events_rows = await db.select().from(events).where(gt(events.timestamp, GO_LIVE_DATE));
 
-    // return { events_rows };
+    return { events_rows };
 }
