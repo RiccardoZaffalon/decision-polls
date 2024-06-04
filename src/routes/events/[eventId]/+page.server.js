@@ -2,7 +2,7 @@ import { eq, sum, desc } from "drizzle-orm";
 import { error } from '@sveltejs/kit';
 
 import db from "$lib/db.server";
-import { options, votes } from "$lib/db/schema";
+import { options, votes, events } from "$lib/db/schema";
 
 export async function load({ params }) {
     const eventId = params.eventId;
@@ -10,6 +10,8 @@ export async function load({ params }) {
     if (!eventId) {
         error(400, 'No Event ID provided');
     }
+
+    const event = await db.select({ timestamp: events.timestamp }).from(events).where(eq(events.id, eventId)).limit(1)
 
     const resultsByOption = await db
         .select({ name: options.name, score: sum(votes.value) })
@@ -27,5 +29,5 @@ export async function load({ params }) {
     const isTie =
         resultsByOption.length > 1 && resultsByOption[0].score === resultsByOption[1].score;
 
-    return { resultsByOption, isTie };
+    return { timestamp: event[0].timestamp, resultsByOption, isTie };
 }

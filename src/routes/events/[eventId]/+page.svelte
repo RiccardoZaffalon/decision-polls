@@ -6,9 +6,15 @@
 	<title>Evento | Solito Metodo 🎲</title>
 </svelte:head>
 
-<h1>Evento</h1>
+<a href="/events" class="block mb-4">← Torna a tutti gli eventi</a>
 
-<a href="/events">Torna indietro</a>
+<h1>
+	Votazione del {new Date(data.timestamp).toLocaleDateString('it-IT', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric'
+	})}
+</h1>
 
 <table class="table text-xl mt-6">
 	<thead>
