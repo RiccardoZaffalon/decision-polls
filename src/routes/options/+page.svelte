@@ -3,6 +3,7 @@
 	import { invalidateAll } from '$app/navigation';
 
 	import Trash from '$lib/components/icons/Trash.svelte';
+	import Pencil from '$lib/components/icons/Pencil.svelte';
 
 	const { data, form } = $props();
 
@@ -120,6 +121,8 @@
 						{#if option.minParticipants && option.maxParticipants}
 							({option.minParticipants} — {option.maxParticipants})
 						{/if}
+
+						<Pencil className="inline w-4 h-4" />
 					</a>
 				</td>
 				<td class="text-right"

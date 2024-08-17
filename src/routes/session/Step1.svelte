@@ -1,6 +1,7 @@
 <script>
 	import { afterNavigate } from '$app/navigation';
 
+	import Options from '$lib/components/icons/ClipboardText.svelte';
 	import store from './store.svelte';
 
 	const { data } = $props();
@@ -210,6 +211,16 @@
 	pulsante <em class="text-primary">Aggiungi</em>.
 </p> -->
 
+<div class="px-4 py-1 rounded bg-base-300 mt-2">
+	<p class="text-xs opacity-80">
+		In caso di dati sbagliati (nome, numero di partecipati, ...) vai alla pagina <a
+			class="text-primary"
+			href="/options"
+			>Opzioni <Options className="inline w-4 h-4" />
+		</a> per correggere prima di iniziare una votazione!
+	</p>
+</div>
+
 <div class="columns-2 mt-4">
 	{#each data.options_rows as option}
 		<div class="form-control">
@@ -219,11 +230,9 @@
 				style:opacity={(option_filter !== '' &&
 					!option.name.toLowerCase().includes(option_filter.toLowerCase())) ||
 				(option.minParticipants &&
-					option.minParticipants &&
 					store.participants.length > 0 &&
 					store.participants.length < option.minParticipants) ||
 				(option.maxParticipants &&
-					option.maxParticipants &&
 					store.participants.length > 0 &&
 					store.participants.length > option.maxParticipants)
 					? 0.3
@@ -240,7 +249,7 @@
 					{option.name}
 					{#if option.minParticipants && option.maxParticipants}
 						<span class="text-xs opacity-70"
-							>({option.minParticipants} — {option.maxParticipants})</span
+							>({option.minParticipants}-{option.maxParticipants})</span
 						>
 					{/if}
 				</span>

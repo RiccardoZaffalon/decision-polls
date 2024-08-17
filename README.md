@@ -11,6 +11,7 @@ A SvelteKit application to make decisions together via polls. SQLite (libSQL) da
 - [Drizzle](https://orm.drizzle.team/docs/overview) (ORM)
 
 Hosted on [Vercel](https://vercel.com).
+Icons from [Phosphor](https://phosphoricons.com/).
 
 ### Instructions
 
