@@ -216,10 +216,18 @@
 			<label
 				class="label justify-start gap-2"
 				style:display={option.type === type ? undefined : 'none'}
-				style:opacity={option_filter === '' ||
-				option.name.toLowerCase().includes(option_filter.toLowerCase())
-					? undefined
-					: '0.3'}
+				style:opacity={(option_filter !== '' &&
+					!option.name.toLowerCase().includes(option_filter.toLowerCase())) ||
+				(option.minParticipants &&
+					option.minParticipants &&
+					store.participants.length > 0 &&
+					store.participants.length < option.minParticipants) ||
+				(option.maxParticipants &&
+					option.maxParticipants &&
+					store.participants.length > 0 &&
+					store.participants.length > option.maxParticipants)
+					? 0.3
+					: undefined}
 			>
 				<input
 					type="checkbox"
@@ -231,7 +239,9 @@
 				<span class="label-text">
 					{option.name}
 					{#if option.minParticipants && option.maxParticipants}
-						({option.minParticipants} — {option.maxParticipants})
+						<span class="text-xs opacity-70"
+							>({option.minParticipants} — {option.maxParticipants})</span
+						>
 					{/if}
 				</span>
 			</label>
