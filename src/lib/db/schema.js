@@ -14,7 +14,9 @@ export const options = sqliteTable('options', {
   id: integer('id').primaryKey(),
   name: text('name').notNull(),
   type: text('type', { enum: category_types }).notNull(),
-  imageURL: text('image_url')
+  imageURL: text('image_url'),
+  minParticipants: numeric('min_participants'),
+  maxParticipants: numeric('max_participants'),
 }, (table) => ({
   nameIdx: index("name_idx").on(table.name),
 }));

@@ -15,6 +15,13 @@
       "when": 1714481024013,
       "tag": "0001_condemned_stingray",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1723905011399,
+      "tag": "0002_black_wolf_cub",
+      "breakpoints": true
     }
   ]
 }

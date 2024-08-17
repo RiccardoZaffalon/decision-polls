@@ -114,7 +114,14 @@
 	<tbody>
 		{#each filtered as option}
 			<tr>
-				<td>{option.name}</td>
+				<td>
+					<a href="/options/{option.id}">
+						{option.name}
+						{#if option.minParticipants && option.maxParticipants}
+							({option.minParticipants} — {option.maxParticipants})
+						{/if}
+					</a>
+				</td>
 				<td class="text-right"
 					><button class="btn btn-xs" onclick={() => remove(option.id)}>
 						<Trash />

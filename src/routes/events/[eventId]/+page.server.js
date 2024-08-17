@@ -11,7 +11,7 @@ export async function load({ params }) {
         error(400, 'No Event ID provided');
     }
 
-    const event = await db.select({ timestamp: events.timestamp }).from(events).where(eq(events.id, eventId)).limit(1)
+    const event = await db.select({ timestamp: events.timestamp }).from(events).where(eq(events.id, eventId)).limit(1);
 
     const resultsByOption = await db
         .select({ name: options.name, score: sum(votes.value) })

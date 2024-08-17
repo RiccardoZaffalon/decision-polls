@@ -228,7 +228,12 @@
 					checked={store.choices.some((choice) => choice.id === option.id)}
 					onchange={() => updateChoices(option)}
 				/>
-				<span class="label-text">{option.name}</span>
+				<span class="label-text">
+					{option.name}
+					{#if option.minParticipants && option.maxParticipants}
+						({option.minParticipants} — {option.maxParticipants})
+					{/if}
+				</span>
 			</label>
 		</div>
 	{/each}
