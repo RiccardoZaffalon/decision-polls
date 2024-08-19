@@ -8,7 +8,7 @@ export async function load() {
     const people_rows = await db.select().from(people).orderBy(people.name);
     const options_rows = await db.select().from(options).orderBy(options.name);
 
-    return { categories_rows, people_rows, options_rows };
+    return { title: "Votazione", categories_rows, people_rows, options_rows };
 }
 
 export const actions = {

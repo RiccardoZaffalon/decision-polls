@@ -4,7 +4,7 @@ import { people } from "$lib/db/schema";
 export async function load() {
     const rows = await db.select().from(people).orderBy(people.name);
 
-    return { rows };
+    return { title: "Persone", rows };
 }
 
 export const actions = {

@@ -115,7 +115,7 @@
 
 <div class="mb-8">
 	<label>
-		<span class="label">Cosa dobbiamo decidere?</span>
+		<span class="label text-lg text-base-content">Cosa dobbiamo decidere?</span>
 
 		<select class="select select-bordered w-48" name="type" bind:value={type} onchange={reset}>
 			{#each data.categories_rows as category}
@@ -127,7 +127,7 @@
 
 <!-- <h3 class="mb-3">Seleziona i partecipanti</h3> -->
 <label for="participant">
-	<span class="label">Chi partecipa?</span>
+	<span class="label text-lg text-base-content">Chi partecipa?</span>
 </label>
 
 <div class="join">
@@ -179,11 +179,11 @@
 	{/each}
 </div>
 
-<hr class="border-none my-8" />
+<hr class="border-none my-4" />
 
 <!-- <h3 class="mb-1">Seleziona le opzioni disponibili</h3> -->
 <label for="option">
-	<span class="label">Che opzioni abbiamo?</span>
+	<span class="label text-lg text-base-content">Che opzioni abbiamo?</span>
 </label>
 
 <div class="join">
@@ -192,7 +192,7 @@
 		id="option"
 		class="input join-item input-bordered"
 		bind:value={option_filter}
-		placeholder="Filtra opzioni..."
+		placeholder="Filtra o aggiungi opzioni..."
 	/>
 	<button
 		class="btn join-item btn-primary"

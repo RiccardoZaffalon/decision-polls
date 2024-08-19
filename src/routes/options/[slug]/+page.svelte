@@ -4,13 +4,9 @@
 	const { data } = $props();
 </script>
 
-<svelte:head>
-	<title>Modifica opzione | Solito Metodo 🎲</title>
-</svelte:head>
-
 <a href="/options" class="block mb-4">← Torna a tutte le opzioni</a>
 
-<h1>Modifica "{data.name}"</h1>
+<h2>Modifica "{data.option.name}"</h2>
 
 <form method="POST" use:enhance>
 	<label class="form-control w-full">
@@ -21,7 +17,7 @@
 			class="input input-bordered w-full max-w-xs"
 			type="text"
 			name="name"
-			value={data.name}
+			value={data.option.name}
 			autocomplete="off"
 			required
 		/>
@@ -35,7 +31,7 @@
 			class="input input-bordered w-full max-w-xs"
 			type="number"
 			name="minParticipants"
-			value={data.minParticipants}
+			value={data.option.minParticipants}
 			autocomplete="off"
 			required
 		/>
@@ -49,7 +45,7 @@
 			class="input input-bordered w-full max-w-xs"
 			type="number"
 			name="maxParticipants"
-			value={data.maxParticipants}
+			value={data.option.maxParticipants}
 			autocomplete="off"
 			required
 		/>

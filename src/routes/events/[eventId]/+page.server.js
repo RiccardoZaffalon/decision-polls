@@ -25,9 +25,8 @@ export async function load({ params }) {
         error(404, 'Results not found');
     }
 
-
     const isTie =
         resultsByOption.length > 1 && resultsByOption[0].score === resultsByOption[1].score;
 
-    return { timestamp: event[0].timestamp, resultsByOption, isTie };
+    return { title: "Evento", timestamp: event[0].timestamp, resultsByOption, isTie };
 }

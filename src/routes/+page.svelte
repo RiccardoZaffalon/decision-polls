@@ -20,7 +20,7 @@
 	<title>Solito Metodo 🎲</title>
 </svelte:head>
 
-<h1 class="mb-12">Benvenuti su "Solito&nbsp;Metodo"&nbsp;🎲</h1>
+<h1 class="mb-12 text-center">Benvenuti sul "Solito&nbsp;Metodo"&nbsp;🎲</h1>
 
 <nav class="grid grid-cols-2 gap-4">
 	<a class={cardClassName(true)} href="/session">

@@ -32,10 +32,6 @@
 	};
 </script>
 
-<svelte:head>
-	<title>Votazione | Solito Metodo 🎲</title>
-</svelte:head>
-
 <svelte:window bind:scrollY={y} />
 
 <form method="POST" use:enhance={submit}>

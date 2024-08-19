@@ -2,12 +2,6 @@
 	const { data } = $props();
 </script>
 
-<svelte:head>
-	<title>Eventi | Solito Metodo 🎲</title>
-</svelte:head>
-
-<h1>Eventi passati</h1>
-
 <table>
 	<tbody>
 		{#each data.events_rows as event, i}

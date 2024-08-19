@@ -44,12 +44,6 @@
 	};
 </script>
 
-<svelte:head>
-	<title>Persone | Solito Metodo 🎲</title>
-</svelte:head>
-
-<h1>Persone</h1>
-
 <p>Usa questa pagina per aggiungere nuove persone; saranno disponibili dalla prossima votazione.</p>
 
 {#if form}

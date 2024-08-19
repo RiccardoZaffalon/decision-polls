@@ -5,7 +5,7 @@ export async function load() {
     const categories_rows = await db.select().from(categories).orderBy(categories.id);
     const options_rows = await db.select().from(options).orderBy(options.type, options.name);
 
-    return { categories_rows, options_rows };
+    return { title: "Opzioni", categories_rows, options_rows };
 }
 
 export const actions = {

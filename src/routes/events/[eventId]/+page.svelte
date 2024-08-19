@@ -2,19 +2,15 @@
 	const { data } = $props();
 </script>
 
-<svelte:head>
-	<title>Evento | Solito Metodo 🎲</title>
-</svelte:head>
-
 <a href="/events" class="block mb-4">← Torna a tutti gli eventi</a>
 
-<h1>
+<h2>
 	Votazione del {new Date(data.timestamp).toLocaleDateString('it-IT', {
 		year: 'numeric',
 		month: 'long',
 		day: 'numeric'
 	})}
-</h1>
+</h2>
 
 <table class="table text-xl mt-6">
 	<thead>

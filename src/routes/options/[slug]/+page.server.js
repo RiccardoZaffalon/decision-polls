@@ -9,7 +9,7 @@ export async function load({ params }) {
 
     if (!option || !option.length) return error(400, "No option found!");
 
-    return option[0];
+    return { title: "Modifica opzione", option: option[0] };
 }
 
 export const actions = {
