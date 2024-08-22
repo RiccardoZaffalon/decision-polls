@@ -19,7 +19,7 @@
 	<title>Solito Metodo 🎲</title>
 </svelte:head>
 
-<div class="drawer">
+<div class="drawer select-none">
 	<input id="menu-control" type="checkbox" class="drawer-toggle" bind:this={menu} />
 
 	<div class="drawer-content">

@@ -1,5 +1,5 @@
 <script>
-	import Rating from './Rating.svelte';
+	import Option from './Option.svelte';
 
 	const { choices, participant } = $props();
 	let group = $state();
@@ -19,6 +19,6 @@
 
 <div class="vote" onchange={change} bind:this={group}>
 	{#each choices as choice}
-		<Rating {participant} {choice} max={3} />
+		<Option {participant} {choice} max={3} />
 	{/each}
 </div>
