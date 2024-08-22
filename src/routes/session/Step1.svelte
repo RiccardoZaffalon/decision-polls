@@ -110,12 +110,14 @@
 
 <h2 class="mt-0 mb-4">1. Configura la sessione</h2>
 <p class="text-sm">
-	Selezione la categoria di voto, poi almeno 2 partecipanti e 2 opzioni per iniziare la votazione.
+	Seleziona la categoria di voto, poi almeno 2 partecipanti e 2 opzioni per iniziare la votazione.
 </p>
 
 <div class="mb-8">
 	<label>
-		<span class="label text-lg text-base-content">Cosa dobbiamo decidere?</span>
+		<span class="label text-lg text-base-content">
+			<li class="list-inside">Cosa dobbiamo decidere?</li>
+		</span>
 
 		<select class="select select-bordered w-48" name="type" bind:value={type} onchange={reset}>
 			{#each data.categories_rows as category}
@@ -127,7 +129,9 @@
 
 <!-- <h3 class="mb-3">Seleziona i partecipanti</h3> -->
 <label for="participant">
-	<span class="label text-lg text-base-content">Chi partecipa?</span>
+	<span class="label text-lg text-base-content">
+		<li class="list-inside">Chi partecipa?</li>
+	</span>
 </label>
 
 <div class="join">
@@ -183,7 +187,9 @@
 
 <!-- <h3 class="mb-1">Seleziona le opzioni disponibili</h3> -->
 <label for="option">
-	<span class="label text-lg text-base-content">Che opzioni abbiamo?</span>
+	<span class="label text-lg text-base-content">
+		<li class="list-inside">Che opzioni abbiamo?</li>
+	</span>
 </label>
 
 <div class="join">

@@ -23,7 +23,7 @@
 	<input id="menu-control" type="checkbox" class="drawer-toggle" bind:this={menu} />
 
 	<div class="drawer-content">
-		<div class="fixed top-0 left-0 right-0 bg-base-100">
+		<div class="fixed top-0 left-0 right-0 bg-base-100 z-10">
 			<div class="flex items-center max-w-5xl mx-auto p-4">
 				<label for="menu-control" class="btn btn-sm btn-link px-0 text-base-content drawer-button">
 					<Menu className="w-6 h-6" />
@@ -49,7 +49,7 @@
 		</main>
 	</div>
 
-	<nav class="drawer-side">
+	<nav class="drawer-side z-10">
 		<label for="menu-control" aria-label="close sidebar" class="drawer-overlay"></label>
 
 		<Navigation />

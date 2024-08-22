@@ -1,8 +1,8 @@
 <script>
 	import store from './store.svelte';
 
-	import Rating from '$lib/components/Rating.svelte';
 	import Caret from '$lib/components/icons/CaretUpDown.svelte';
+	import Vote from './Vote.svelte';
 
 	let current_participant = $state(0);
 
@@ -31,9 +31,7 @@
 			</div>
 		</div>
 		<div class="collapse-content">
-			{#each store.choices as choice}
-				<Rating {participant} {choice} max={3} />
-			{/each}
+			<Vote choices={store.choices} {participant} />
 
 			{#if index < store.participants.length - 1}
 				<div class="text-right">
