@@ -1,10 +1,13 @@
 <script>
 	import Option from './Option.svelte';
 
-	const { choices, participant } = $props();
+	const { choices, participant, audio } = $props();
 	let group = $state();
 
 	function change(e) {
+		audio.volume = 0.2;
+		audio.play();
+
 		const { target } = e;
 
 		const inputs = group.querySelectorAll('input[type="radio"]');

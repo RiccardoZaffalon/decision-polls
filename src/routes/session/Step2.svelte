@@ -5,6 +5,7 @@
 	import Vote from './Vote.svelte';
 
 	let current_participant = $state(0);
+	let audio = $state();
 
 	const next = (e) => {
 		e.preventDefault();
@@ -21,6 +22,8 @@
 
 <h2 class="mt-0">2. Votazione</h2>
 
+<audio src="src/assets/kenney-sounds/drop_004.ogg" bind:this={audio}></audio>
+
 {#each store.participants as participant, index}
 	<div class="collapse bg-base-200 mb-6">
 		<input type="radio" name="current-participant" bind:group={current_participant} value={index} />
@@ -31,7 +34,7 @@
 			</div>
 		</div>
 		<div class="collapse-content">
-			<Vote choices={store.choices} {participant} />
+			<Vote choices={store.choices} {participant} {audio} />
 
 			{#if index < store.participants.length - 1}
 				<div class="text-right">
