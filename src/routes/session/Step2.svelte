@@ -22,7 +22,7 @@
 
 <h2 class="mt-0">2. Votazione</h2>
 
-<audio src="src/assets/kenney-sounds/drop_004.ogg" bind:this={audio}></audio>
+<audio src="/kenney-sounds/drop_004.ogg" bind:this={audio}></audio>
 
 {#each store.participants as participant, index}
 	<div class="collapse bg-base-200 mb-6">
