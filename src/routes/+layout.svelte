@@ -17,6 +17,7 @@
 
 <svelte:head>
 	<title>Solito Metodo 🎲</title>
+	<meta name="robots" content="noindex" />
 </svelte:head>
 
 <div class="drawer select-none">
