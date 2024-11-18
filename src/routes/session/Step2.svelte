@@ -24,19 +24,24 @@
 
 <audio src="/kenney-sounds/drop_004.ogg" bind:this={audio}></audio>
 
-{#each store.participants as participant, index}
+{#each store.shuffledParticipantsIndices as index, iterator}
 	<div class="collapse bg-base-200 mb-6">
-		<input type="radio" name="current-participant" bind:group={current_participant} value={index} />
+		<input
+			type="radio"
+			name="current-participant"
+			bind:group={current_participant}
+			value={iterator}
+		/>
 		<div class="collapse-title pr-4">
 			<div class="flex justify-between items-center">
-				<h3 class="my-0">{participant.name}</h3>
+				<h3 class="my-0">{store.participants[index].name}</h3>
 				<Caret className="h-5 w-5 my-0" />
 			</div>
 		</div>
 		<div class="collapse-content">
-			<Vote choices={store.choices} {participant} {audio} />
+			<Vote choices={store.choices} participant={store.participants[index]} {audio} />
 
-			{#if index < store.participants.length - 1}
+			{#if iterator < store.participants.length - 1}
 				<div class="text-right">
 					<button onclick={next} class="btn btn-sm btn-secondary mt-6">Prossimo</button>
 				</div>
