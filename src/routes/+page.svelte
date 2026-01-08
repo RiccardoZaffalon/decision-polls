@@ -2,6 +2,7 @@
 	import People from '$lib/components/icons/Users.svelte';
 	import Options from '$lib/components/icons/ClipboardText.svelte';
 	import Vote from '$lib/components/icons/Sword.svelte';
+	import Stats from '$lib/components/icons/Stats.svelte';
 
 	const cardClassName = (primary) => {
 		let base = 'card p-6 flex justify-center items-center text-center shadow-xl ';
@@ -33,6 +34,10 @@
 	>
 	<a class={cardClassName()} href="/people">
 		<People className="h-8 w-8 mb-4" />
-		Aggiunge persone</a
+		Aggiungi persone</a
+	>
+	<a class={cardClassName()} href="/stats">
+		<Stats className="h-8 w-8 mb-4" />
+		Statistiche</a
 	>
 </nav>

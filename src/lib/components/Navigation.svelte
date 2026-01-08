@@ -3,6 +3,7 @@
 
 	import Home from '$lib/components/icons/House.svelte';
 	import Events from '$lib/components/icons/Calendar.svelte';
+	import Stats from '$lib/components/icons/Stats.svelte';
 	import People from '$lib/components/icons/Users.svelte';
 	import Options from '$lib/components/icons/ClipboardText.svelte';
 	import Vote from '$lib/components/icons/Sword.svelte';
@@ -16,12 +17,6 @@
 		</a>
 	</li>
 	<li class="mb-2">
-		<a href="/events" class:active={$page.url.pathname === '/events'}>
-			<Events className="h-6 w-6" />
-			<span>Sessioni passate</span>
-		</a>
-	</li>
-	<li class="mb-2">
 		<a href="/people" class:active={$page.url.pathname === '/people'}>
 			<People className="h-6 w-6" />
 			<span>Persone</span>
@@ -31,6 +26,18 @@
 		<a href="/options" class:active={$page.url.pathname === '/options'}>
 			<Options className="h-6 w-6" />
 			<span>Opzioni</span>
+		</a>
+	</li>
+	<li class="mb-2">
+		<a href="/events" class:active={$page.url.pathname === '/events'}>
+			<Events className="h-6 w-6" />
+			<span>Sessioni passate</span>
+		</a>
+	</li>
+	<li class="mb-2">
+		<a href="/stats" class:active={$page.url.pathname === '/stats'}>
+			<Stats className="h-6 w-6" />
+			<span>Statistiche</span>
 		</a>
 	</li>
 	<li class="mb-2">
