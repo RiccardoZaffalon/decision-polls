@@ -8,7 +8,7 @@
 			<tr>
 				<td>{i + 1}</td>
 				<td
-					>{new Date(event.timestamp).toLocaleDateString('it-IT', {
+					>{new Date(+event.timestamp).toLocaleDateString('it-IT', {
 						weekday: 'long',
 						year: 'numeric',
 						month: 'long',
