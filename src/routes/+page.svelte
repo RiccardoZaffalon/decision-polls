@@ -3,6 +3,7 @@
 	import Options from '$lib/components/icons/ClipboardText.svelte';
 	import Vote from '$lib/components/icons/Sword.svelte';
 	import Stats from '$lib/components/icons/Stats.svelte';
+	import Shuffle from '$lib/components/icons/Shuffle.svelte';
 
 	const cardClassName = (primary) => {
 		let base = 'card p-6 flex justify-center items-center text-center shadow-xl ';
@@ -39,5 +40,10 @@
 	<a class={cardClassName()} href="/stats">
 		<Stats className="h-8 w-8 mb-4" />
 		Statistiche</a
+	>
+
+	<a class={cardClassName()} href="/nomi-cose-citta">
+		<Shuffle className="h-8 w-8 mb-4" />
+		Nomi cose città</a
 	>
 </nav>

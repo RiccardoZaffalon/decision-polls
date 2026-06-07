@@ -7,6 +7,7 @@
 	import People from '$lib/components/icons/Users.svelte';
 	import Options from '$lib/components/icons/ClipboardText.svelte';
 	import Vote from '$lib/components/icons/Sword.svelte';
+	import Shuffle from '$lib/components/icons/Shuffle.svelte';
 </script>
 
 <ul class="menu bg-base-200 text-base-content min-h-full w-80">
@@ -38,6 +39,12 @@
 		<a href="/stats" class:active={$page.url.pathname === '/stats'}>
 			<Stats className="h-6 w-6" />
 			<span>Statistiche</span>
+		</a>
+	</li>
+	<li class="mb-2">
+		<a href="/nomi-cose-citta" class:active={$page.url.pathname === '/nomi-cose-citta'}>
+			<Shuffle className="h-6 w-6" />
+			<span>Nomi cose città</span>
 		</a>
 	</li>
 	<li class="mb-2">
