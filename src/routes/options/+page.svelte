@@ -9,7 +9,7 @@
 
 	let name = $state('');
 	let removed = $state([]);
-	let selected_type = $state(data.categories_rows[1].id);
+	let selected_type = $derived(data.categories_rows[1].id);
 
 	const selected_singular = $derived(
 		data.categories_rows.find((el) => el.id === selected_type)?.singular

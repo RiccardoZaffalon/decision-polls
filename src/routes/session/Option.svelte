@@ -1,10 +1,12 @@
 <script>
 	const { participant, choice, max = 3 } = $props();
 
-	const options = new Array(max)
-		.fill('')
-		.map((_el, i) => i + 1)
-		.reverse();
+	const options = $derived.by(() => {
+		return new Array(max)
+			.fill('')
+			.map((_el, i) => i + 1)
+			.reverse();
+	});
 </script>
 
 <div class="rating-options mb-4 flex gap-1 items-center justify-between">

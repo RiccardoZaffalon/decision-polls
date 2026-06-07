@@ -1,6 +1,5 @@
 <script>
 	const { data } = $props();
-	const { stats } = data;
 </script>
 
 <table>
@@ -12,7 +11,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		{#each stats as stat}
+		{#each data.stats as stat}
 			<tr>
 				<td>{stat.optionName}</td>
 				<td>{stat.sumVotes}</td>

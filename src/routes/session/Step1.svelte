@@ -12,7 +12,7 @@
 	let option_filter = $state('');
 	let person_filter = $state('');
 
-	let type = $state(data?.categories_rows[0]?.id);
+	let type = $derived(data?.categories_rows[0]?.id);
 
 	afterNavigate(() => {
 		person_filter = '';
